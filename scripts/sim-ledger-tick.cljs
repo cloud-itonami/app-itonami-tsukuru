@@ -1,0 +1,50 @@
+;; Emit one status/sim-ledger.edn line for a product: load the decl, run the sim,
+;; print the ledger map with a JST wall-clock timestamp.
+;;
+;;   cd <tsukuru repo root>
+;;   nbb --classpath site scripts/sim-ledger-tick.cljs [products-dir] [product-file]
+;;
+;; Defaults: products-dir "products", product-file "mk1-sandwich.edn".
+;; Appending the printed line to status/sim-ledger.edn is the caller's job —
+;; this script does not write, so a failed run cannot append a fabricated row.
+;;
+;; Unlike scripts/sim-tick-product.cljs, :passed? here is sim/run-sim's own verdict,
+;; which requires tolerance and insertion checks to pass — not merely (empty? findings).
+(require '[tsukuru.load :as load]
+         '[tsukuru.sim :as sim]
+         '[clojure.edn :as edn]
+         '["fs" :as fs]
+         '["path" :as path])
+
+(defn- jst-now
+  "Current time as an ISO-8601 wall clock in JST (+09:00)."
+  []
+  (let [shifted (js/Date. (+ (.getTime (js/Date.)) (* 9 60 60 1000)))
+        iso     (.toISOString shifted)]
+    (str (subs iso 0 19) "+09:00")))
+
+(defn -main [& args]
+  (let [[dir file] args
+        dir     (or dir "products")
+        file    (or file "mk1-sandwich.edn")
+        p       (path/join dir file)]
+    (when-not (fs.existsSync p)
+      ;; Refuse rather than emit a row: a tick that could not read its input must
+      ;; not be indistinguishable from a tick that read it and found nothing wrong.
+      (println (str "REFUSED: no such product file: " p
+                    " (cwd " (js/process.cwd) ") — pass [products-dir] [product-file]"))
+      (js/process.exit 2))
+    (let [decl    (edn/read-string (fs.readFileSync p "utf8"))
+          product (try (load/load-decl decl)
+                       (catch :default e
+                         (println (str "LOAD-ERROR " p ": " (.-message e)))
+                         (js/process.exit 1)))
+          result   (sim/run-sim product)
+          findings (:findings result)]
+      (prn {:at       (jst-now)
+            :product  (:product/id product)
+            :passed?  (boolean (:passed? result))
+            :findings (count findings)
+            :kinds    (mapv :kind findings)}))))
+
+(apply -main *command-line-args*)
