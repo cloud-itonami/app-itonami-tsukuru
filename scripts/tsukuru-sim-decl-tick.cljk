@@ -1,4 +1,4 @@
-;; tsukuru-sim tick: products/*.edn を load.all-products で読み sim.run-sim に通す (nbb -e 禁止)
+;; tsukuru-sim tick: products/*.edn を load.all-products で読み sim.run-sim に通す (kbb --backend sci -e 禁止)
 (require '[tsukuru.load :as load]
          '[tsukuru.sim :as sim])
 

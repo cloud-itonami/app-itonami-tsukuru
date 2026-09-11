@@ -2,7 +2,7 @@
 ;; print the ledger map with a JST wall-clock timestamp.
 ;;
 ;;   cd <tsukuru repo root>
-;;   nbb --classpath site scripts/sim-ledger-tick.cljk [products-dir] [product-file]
+;;   kbb --backend sci --classpath site scripts/sim-ledger-tick.cljk [products-dir] [product-file]
 ;;
 ;; Defaults: products-dir "products", product-file "mk1-sandwich.edn".
 ;; Appending the printed line to status/sim-ledger.edn is the caller's job —
