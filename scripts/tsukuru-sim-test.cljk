@@ -1,5 +1,5 @@
 ;; tsukuru sim/design/usd — nbb runner (nbb は test framework を持たないので自前 assert)
-;; Run: nbb --classpath site scripts/tsukuru-sim-test.cljk
+;; Run: kbb --backend sci --classpath site scripts/tsukuru-sim-test.cljk
 (require '[tsukuru.model :as model]
          '[tsukuru.design :as design]
          '[tsukuru.sim :as sim]
