@@ -14,10 +14,10 @@
 
 ```bash
 # テスト
-nbb --classpath site scripts/tsukuru-sim-test.cljs
+nbb --classpath site scripts/tsukuru-sim-test.cljk
 
 # 公開面の生成 (public/sites/app/tsukuru/)
-nbb --classpath site scripts/generate-tsukuru-site.cljs
+nbb --classpath site scripts/generate-tsukuru-site.cljk
 ```
 
 ## NVIDIA 互換性の位置づけ

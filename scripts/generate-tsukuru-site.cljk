@@ -6,7 +6,7 @@
 ;; 「実際に回した」ことの証拠として usda を 1 本出す。
 ;;
 ;; Run (tsukuru repo root から):
-;;   nbb --classpath "site:../cloud-itonami/scripts" scripts/generate-tsukuru-site.cljs
+;;   nbb --classpath "site:../cloud-itonami/scripts" scripts/generate-tsukuru-site.cljk
 (require '[clojure.edn :as edn]
          '["fs" :as fs]
          '["path" :as path]
