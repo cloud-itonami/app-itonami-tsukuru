@@ -72,7 +72,7 @@ cannot currently tell a rail quote from a sea quote from a mistake.
 
 ## 3. ⚠ The deprecated nanoid is still in this repository's own metadata
 
-`CLAUDE.md` states the rule at the top:
+`AGENTS.md` states the rule at the top:
 
 > Canonical nanoid is `tsukr8u0`. `0ljdfw8u` is deprecated (alpha-start violation)
 > and **must not be used in new paths, hosts, component names, or deploy commands**.
@@ -81,7 +81,7 @@ Measured:
 
 ```bash
 git grep -c '0ljdfw8u' -- .
-#   CLAUDE.md:1        <- the prohibition itself
+#   AGENTS.md:1        <- the prohibition itself
 #   PROJECT.jsonld:2
 git grep -o '"[^"]*0ljdfw8u[^"]*"' PROJECT.jsonld
 #   "etzhayyim-wasm-tsukuru-0ljdfw8u"
@@ -90,7 +90,7 @@ git grep -o '"[^"]*0ljdfw8u[^"]*"' PROJECT.jsonld
 
 A **component name** and a **host** — two of the four categories the rule names, in
 the file that describes the project. Note also that the canonical API base in
-`CLAUDE.md` is `https://tsukr8u0.etzhayyim.com/xrpc`, so the two documents disagree
+`AGENTS.md` is `https://tsukr8u0.etzhayyim.com/xrpc`, so the two documents disagree
 about both the host and the protocol (`/xrpc` against `/api/grpc`).
 
 ## 4. What is here and does not run from a checkout ⚠ NOT WALKED
